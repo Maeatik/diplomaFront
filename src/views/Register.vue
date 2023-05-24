@@ -1,19 +1,19 @@
 <template>
   <v-app>
     <v-main>
-      
-      <v-alert v-if="showErrorPass" type="error" dense >
+
+      <v-alert v-if="showErrorPass" type="error" dense>
         Пароли не совпадают
       </v-alert>
 
-      <v-alert v-if="showErrorValues" type="error" dense >
+      <v-alert v-if="showErrorValues" type="error" dense>
         Проверьте введенные значения
       </v-alert>
 
       <div class="form-container">
         <v-card text="Регистрация" class="text-center">
-        
-          <v-container  fluid>
+
+          <v-container fluid>
             <v-row justify="center">
               <v-col class="dialog-content" cols="16" sm="9" md="0">
                 <v-card>
@@ -41,7 +41,7 @@
                           Отправить
                         </v-btn>
                       </div>
-
+                      <router-link to="/login">Уже зарегистрированы?</router-link>
                     </v-form>
                   </v-card-text>
                 </v-card>
@@ -56,7 +56,9 @@
   
 <script lang='ts'>
 import { defineComponent } from 'vue'
+
 export default defineComponent({
+  name: 'Register',
   data() {
     return {
       login: '',
@@ -79,7 +81,7 @@ export default defineComponent({
         if (this.password !== this.rePassword) {
           this.showErrorPass = true;
         } else {
-          this.showErrorPass = false;
+          
         }
       } else {
         this.showErrorPass = false;
@@ -89,8 +91,11 @@ export default defineComponent({
     },
     submitForm() {
       if (this.password != this.rePassword) {
-        console.log('чмо')
+        this.showErrorPass = true;
+        return
       }
+
+      this.$router.push('/');
       console.log('Отправлено:', this.login, this.password, this.rePassword);
     }
   }

@@ -1,11 +1,7 @@
 <template>
     <v-app>
       <v-main>
-        
-        <v-alert v-if="showErrorPass" type="error" dense>
-          Пароли не совпадают
-        </v-alert>
-  
+          
         <v-alert v-if="showErrorValues" type="error" dense>
           Проверьте введенные значения
         </v-alert>
@@ -31,7 +27,7 @@
   
 
                         <div class="text-center">
-                          <v-btn justify-content="center" type="submit" color="primary" @click="checkPasswords">
+                          <v-btn justify-content="center" type="submit" color="primary" @click="submitForm">
                             Отправить
                           </v-btn>
                         </div>
@@ -51,6 +47,7 @@
   <script lang='ts'>
   import { defineComponent } from 'vue'
   export default defineComponent({
+    name: 'Login',
     data() {
       return {
         login: '',
@@ -67,24 +64,8 @@
       }
     },
     methods: {
-      checkPasswords() {
-        if (this.password !== "" && this.rePassword !== "" && this.login !== "") {
-          this.showErrorValues = false
-          if (this.password !== this.rePassword) {
-            this.showErrorPass = true;
-          } else {
-            this.showErrorPass = false;
-          }
-        } else {
-          this.showErrorPass = false;
-          this.showErrorValues = true
-        }
-  
-      },
       submitForm() {
-        if (this.password != this.rePassword) {
-          console.log('чмо')
-        }
+        this.$router.push('/');
         console.log('Отправлено:', this.login, this.password, this.rePassword);
       }
     }

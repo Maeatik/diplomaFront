@@ -1,21 +1,17 @@
 <template>
   <v-app>
     <v-main>
-      <!-- <HelloWorld /> -->
-      <Login />
-      <!-- <v-app>
-        <v-btn color="primary">Привет, Vuetify!</v-btn>
-      </v-app> -->
-
+      <router-view />
     </v-main>
   </v-app>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import HelloWorld from './components/HelloWorld.vue'
-import Register from './components/Register.vue'
-import Login from './components/Login.vue'
+import HelloWorld from './views/HelloWorld.vue'
+import Register from './views/Register.vue'
+import Login from './views/Login.vue'
+import MainPage from './views/MainPage.vue'
 
 export default defineComponent({
   name: 'App',
@@ -23,7 +19,8 @@ export default defineComponent({
   components: {
     HelloWorld,
     Register,
-    Login
+    Login,
+    MainPage
   },
 
   data() {
