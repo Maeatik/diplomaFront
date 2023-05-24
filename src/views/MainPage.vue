@@ -4,7 +4,7 @@
             <v-toolbar-title>TextGrabber</v-toolbar-title>
             <v-spacer></v-spacer>
             <template v-if="isLoggedIn">
-                <v-btn>Мой аккаунт</v-btn>
+                <v-btn to="/account">Мой аккаунт</v-btn>
             </template>
             <template v-else>
                 <v-btn to="/registration">Регистрация</v-btn>
@@ -104,13 +104,9 @@ export default defineComponent({
     background-position: center;
 } */
 
-.container {
-    width: 150vh;
-
-}
-
 .container.d-flex.justify-center {
     align-items: center;
+    width: 150vh;
 }
 
 .form-container {
