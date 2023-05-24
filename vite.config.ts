@@ -15,7 +15,8 @@ export default defineConfig({
 		include: [
 			'vue',
 			'vue-router',
-			'vue-property-decorator' // добавьте vue-property-decorator сюда
+			'vue-property-decorator',
+			'tinymce' // добавьте vue-property-decorator сюда
 		],
 	},
-})
+} as import('vite').UserConfig)

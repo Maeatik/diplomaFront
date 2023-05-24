@@ -3,10 +3,11 @@ import MainPage from "../views/MainPage.vue"
 import Register from '../views/Register.vue'
 import Login from '../views/Login.vue'
 import Account from '../views/UserAccount.vue'
+import Text from '../views/TextPage.vue'
 
 const routes: Array<RouteRecordRaw> = [
   {
-    path : '/',
+    path: '/',
     name: 'MainPage',
     component: MainPage
   },
@@ -24,7 +25,13 @@ const routes: Array<RouteRecordRaw> = [
     path: '/account',
     name: 'Account',
     component: Account
+  },
+  {
+    path: '/text',
+    name: 'Text',
+    component: Text
   }
+
 ];
 
 const router = createRouter({

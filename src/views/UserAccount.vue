@@ -72,7 +72,8 @@
 
                     <template v-slot:append>
                         <v-btn icon="mdi-cloud-upload" size="x-small" variant="tonal" class="textsButton" @click="download(item)"></v-btn>
-                        <v-btn icon="mdi-pencil" size="x-small" variant="tonal" class="textsButton"></v-btn>
+                        <v-btn icon="mdi-pencil" size="x-small" variant="tonal" class="textsButton" to = "/text"></v-btn>
+                        <v-btn icon="mdi-delete" size="x-small" variant="tonal" class="textsButton"></v-btn>
                     </template>
                 </v-list-item>
             </template>
