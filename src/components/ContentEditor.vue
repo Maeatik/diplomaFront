@@ -1,6 +1,6 @@
 <template>
     <div class="ck_editor">
-      <CKEditor :editor="ClassicEditor" v-model="editorData" :config="editorConfig" @input="handleEditorInput"></CKEditor>
+      <CKEditor :editor="ClassicEditor" v-model="editorData" :config="editorConfig"></CKEditor>
     </div>
   </template>
   
@@ -29,12 +29,9 @@
   
   watch(editorData, () => {
     emit('update:modelValue', editorData.value);
-    emit('getText', editorData.value); // Добавлено для срабатывания события getText при изменении текста
+    emit('getText', editorData.value); 
   });
 
-  function handleEditorInput() {
-  console.log(editorData.value)
-}
   </script>
   
   <style>
