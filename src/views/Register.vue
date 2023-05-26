@@ -56,6 +56,7 @@
   
 <script lang='ts'>
 import { defineComponent } from 'vue'
+import axios from 'axios';
 
 export default defineComponent({
   name: 'Register',
@@ -68,6 +69,8 @@ export default defineComponent({
       password: '',
       showErrorPass: false,
       showErrorValues: false,
+      userData: { name: '', password: '' },
+
       rules: {
         required: (value: any) => !!value || 'Required.',
         min: (v: string | any[]) => v.length >= 8 || 'Минимум 8 символов',
@@ -81,7 +84,29 @@ export default defineComponent({
         if (this.password !== this.rePassword) {
           this.showErrorPass = true;
         } else {
-          
+
+          this.userData = {
+            name: this.login,
+            password: this.password
+          }
+
+          console.log(this.userData.name)
+          axios.post('http://localhost:8000/auth/register', this.userData)
+            .then(response => {
+              console.log(response.data);
+
+              axios.post('http://localhost:8000/auth/login', this.userData)
+                .then(response => {
+                  localStorage.setItem('jwtToken', response.data.id);
+                  console.log(localStorage.getItem('jwtToken'));
+                }).catch(error => {
+                  console.error(error);
+                });
+            })
+            .catch(error => {
+              console.error(error);
+            });
+
         }
       } else {
         this.showErrorPass = false;
@@ -96,8 +121,9 @@ export default defineComponent({
       }
 
       this.$router.push('/');
+
       console.log('Отправлено:', this.login, this.password, this.rePassword);
-    }
+    },
   }
 })
 </script>

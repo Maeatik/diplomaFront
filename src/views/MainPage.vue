@@ -3,7 +3,7 @@
         <v-app-bar app color="primary" dark>
             <v-toolbar-title>TextGrabber</v-toolbar-title>
             <v-spacer></v-spacer>
-            <template v-if="isLoggedIn">
+            <template v-if="!!token">
                 <v-btn to="/account">Мой аккаунт</v-btn>
             </template>
             <template v-else>
@@ -18,7 +18,7 @@
                 <v-layout row wrap align-center class="text-center">
                     <v-row justify="center" align="center" class="h-100 justify-center">
                         <v-col cols="12" md="8" class="col-6">
-                            <v-text-field v-model="textField1" label="Введите ссылку" :rules="[rules.required]">
+                            <v-text-field v-model="url" label="Введите ссылку" :rules="[rules.required]">
                                 <template v-slot:append>
                                     <v-tooltip activator="parent" location="top"
                                         text="Введите ссылку на корень сайта, с которого вы хочете забрать текст">
@@ -33,7 +33,7 @@
                             </v-text-field>
                         </v-col>
                         <v-col cols="12" md="4" class="col-4">
-                            <v-text-field v-model="textField2" label="Введите теговое слово или фразу">
+                            <v-text-field v-model="tag" label="Введите теговое слово или фразу">
                                 <template v-slot:append>
                                     <v-tooltip activator="parent" location="top"
                                         text="Вы можете ввести слово или фразу, по которой будет определяться релевантность текста">
@@ -48,7 +48,7 @@
                             </v-text-field>
                         </v-col>
                         <v-col cols="12" md="4">
-                            <v-btn color="primary">Собрать текст</v-btn>
+                            <v-btn color="primary" @click=handleClick>Собрать текст</v-btn>
                         </v-col>
                     </v-row>
                 </v-layout>
@@ -58,52 +58,83 @@
 </template>
   
 <script lang="ts">
-
-import { defineComponent } from 'vue'
+import { defineComponent } from 'vue';
+import axios from 'axios';
 
 export default defineComponent({
     name: 'MainPage',
+    props: ['refresh'],
     data() {
         return {
-            textField1: '',
-            textField2: '',
-
+            url: '',
+            tag: '',
+            token: '',
+            data: { url: '', tag: '' },
             rules: {
                 required: (value: any) => !!value || 'Введите ссылку',
             },
-        }
+        };
     },
 
     methods: {
         handleClick(): void {
+            this.data.url = this.url
+            this.data.tag = this.tag
+            axios.defaults.headers.common['Authorization'] = `Bearer ${this.token}`;
+            axios.post('http://localhost:8000/api/parse', this.data)
+                .then(response => {
+                    console.log(response.data);
+                })
+                .catch(error => {
+                    console.error(error);
+                });
             console.log('Button clicked');
         },
         showHelp(field: string) {
-            if (field == 'link') {
+            if (field === 'link') {
                 console.log('Button 1');
-            } else if (field == 'keyword') {
+            } else if (field === 'keyword') {
                 console.log('Button 2');
+            }
+        },
+        isLoggedIn2() {
+            const jwtToken = localStorage.getItem('jwtToken');
+            if (jwtToken !== null) {
+                this.token = jwtToken
+            }
+
+            console.log(this.token)
+            return !!this.token;
+        },
+    },
+    watch: {
+        refresh(newRefresh) {
+            if (newRefresh) {
+                this.isLoggedIn2(); // Вызов метода при изменении параметра refresh
             }
         }
     },
     computed: {
         isLoggedIn() {
-            // Проверка наличия сохраненного JWT токена
-            // const token = localStorage.getItem('jwtToken');
-            // return !!token;
-            return true
-        }
+            const jwtToken = localStorage.getItem('jwtToken');
+            return !!jwtToken;
+        },
+    },
+    created() {
+        return this.isLoggedIn2();
+
+        // const jwtToken = localStorage.getItem('jwtToken');
+        // if (jwtToken !== null) {
+        //     this.token = jwtToken
+        // }
+
+        // console.log(this.token)
+        // return !!this.token;
     }
-})
+});
 </script>
 
 <style>
-/* .app {
-    background-image: url('https://cdn-edge.kwork.ru/pics/t3/77/739464-1546954541.jpg');
-    background-size: cover;
-    background-position: center;
-} */
-
 .container.d-flex.justify-center {
     align-items: center;
     width: 150vh;

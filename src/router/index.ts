@@ -9,7 +9,8 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
     name: 'MainPage',
-    component: MainPage
+    component: MainPage,
+    props: (route) => ({ refresh: route.query.refresh })
   },
   {
     path: '/registration',
@@ -38,5 +39,6 @@ const router = createRouter({
   history: createWebHistory(),
   routes
 });
+
 
 export default router;

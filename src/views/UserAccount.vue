@@ -13,6 +13,8 @@
                         <v-btn variant="plain" class="w-100" to="/">Вернуться на главную</v-btn>
                         <v-btn variant="plain" class="w-100" @click="overlayPassword = !overlayPassword">Сменить
                             пароль</v-btn>
+                            <v-btn variant="plain" class="w-100" @click=logout() to="/">Выйти из аккаунта
+                            </v-btn>
                         <v-btn variant="plain" class="w-100" @click="overlayDelete = !overlayDelete">Удалить аккаунт</v-btn>
                     </v-list>
                 </v-menu>
@@ -100,6 +102,9 @@ export default defineComponent({
     methods:{
         download(item){
             console.log(item)
+        },
+        logout(){
+            localStorage.removeItem('jwtToken');
         }
     }
 //     methods: {
