@@ -48,7 +48,8 @@ export default {
       text: '',
       content: this.getText(),
       token: '',
-      apiData: { id: 0, site_id: 0 }
+      apiData: { id: 0, site_id: 0 },
+      textData: { id: 0, site_id: 0, text: '' }
     };
     console.log(this.content)
   },
@@ -57,6 +58,23 @@ export default {
   },
   methods: {
     save() {
+      const jwtToken = localStorage.getItem('jwtToken');
+      if (jwtToken !== null) {
+        this.token = jwtToken
+      }
+      axios.defaults.headers.common['Authorization'] = `Bearer ${this.token}`;
+
+      this.textData = { id: 23, site_id: 19, text: this.content }
+      axios.put('http://localhost:8000/api/texts/text', this.textData)
+        .then(response => {
+          this.$router.push('/account');
+
+        })
+        .catch(error => {
+          console.error(error);
+        });
+
+
       console.log('Текст сохранен:', this.content);
       this.saved = true;
     },
@@ -90,12 +108,12 @@ export default {
         }
         axios.defaults.headers.common['Authorization'] = `Bearer ${this.token}`;
 
-        this.textDataf = { id: 23, site_id: 19 }
+        this.apiData = { id: 23, site_id: 19 }
 
         try {
           const response = await axios.get('http://localhost:8000/api/texts/text', {
             headers: {
-              'X-Data': JSON.stringify(this.textDataf)
+              'X-Data': JSON.stringify(this.apiData)
             }
           });
 
@@ -112,7 +130,7 @@ export default {
           return content
         }
       })();
-      return 
+      return
     }
 
   },
@@ -125,12 +143,12 @@ export default {
       }
       axios.defaults.headers.common['Authorization'] = `Bearer ${this.token}`;
 
-      this.textDataf = { id: 23, site_id: 19 }
+      this.apiData = { id: 23, site_id: 19 }
 
       try {
         const response = await axios.get('http://localhost:8000/api/texts/text', {
           headers: {
-            'X-Data': JSON.stringify(this.textDataf)
+            'X-Data': JSON.stringify(this.apiData)
           }
         });
 
