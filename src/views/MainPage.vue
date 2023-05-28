@@ -1,26 +1,24 @@
 <template>
     <v-app class="app">
-        <v-app-bar app color="primary" dark>
-            <v-toolbar-title>TextGrabber</v-toolbar-title>
+        <v-app-bar app color="#AFEEEE" dark>
+            <v-toolbar-title class="font" style="font-size: 35px; font-weight: 700;">TEXTGrabber</v-toolbar-title>
             <v-spacer></v-spacer>
 
-             <v-btn to="/account">Мой аккаунт</v-btn>
-
+            <v-btn class="btn font" style="font-size: 14px; font-weight: 700;" to="/account">Мой аккаунт</v-btn>
 
         </v-app-bar>
 
         <div class="form-container">
-            <v-container bg fill-height grid-list-md text-xs-center class="container d-flex justify-center" fluid>
-                <v-layout row wrap align-center class="text-center">
+            <v-container class="container d-flex justify-center" fluid>
+                <v-layout class="text-center">
                     <v-row justify="center" align="center" class="h-100 justify-center">
                         <v-col cols="12" md="8" class="col-6">
-                            <v-text-field v-model="url" label="Введите ссылку" :rules="[rules.required]">
+                            <v-text-field v-model="url" class="font" label="Введите ссылку" :rules="[rules.required]">
                                 <template v-slot:append>
-                                    <v-tooltip activator="parent" location="top"
+                                    <v-tooltip activator="parent" class="font"  location="top"
                                         text="Введите ссылку на корень сайта, с которого вы хочете забрать текст">
                                         <template v-slot:activator="{ props }">
                                             <v-btn v-bind="props" icon @click="showHelp('link')">
-                                                <!-- Добавленная кнопка справки -->
                                                 <v-icon>mdi-help-circle-outline</v-icon>
                                             </v-btn>
                                         </template>
@@ -29,13 +27,12 @@
                             </v-text-field>
                         </v-col>
                         <v-col cols="12" md="4" class="col-4">
-                            <v-text-field v-model="tag" label="Введите теговое слово или фразу">
+                            <v-text-field v-model="tag" class="font"  label="Введите теговое слово или фразу">
                                 <template v-slot:append>
-                                    <v-tooltip activator="parent" location="top"
+                                    <v-tooltip activator="parent" class="font"  location="top"
                                         text="Вы можете ввести слово или фразу, по которой будет определяться релевантность текста">
                                         <template v-slot:activator="{ props }">
                                             <v-btn v-bind="props" icon @click="showHelp('keyword')">
-                                                <!-- Добавленная кнопка справки -->
                                                 <v-icon>mdi-help-circle-outline</v-icon>
                                             </v-btn>
                                         </template>
@@ -44,13 +41,26 @@
                             </v-text-field>
                         </v-col>
                         <v-col cols="12" md="4">
-                            <v-btn color="primary" @click=handleClick>Собрать текст</v-btn>
+                            <v-btn color="#00CED1" @click=handleClick class="btn font" style="font-size: 14px; font-weight: 700;">Собрать текст</v-btn>
                         </v-col>
                     </v-row>
                 </v-layout>
             </v-container>
         </div>
     </v-app>
+    <v-footer class="flex-column">
+        <div class="bg-teal d-flex  w-100">
+            <strong>Проект расположен в открытом доступе</strong>
+
+            <v-spacer></v-spacer>
+
+            <v-btn v-for="icon in icons" :key="icon" class="mx-4" :icon="icon" variant="plain" size="small"></v-btn>
+        </div>
+
+        <div class="bg-black text-center w-100">
+            {{ new Date().getFullYear() }} — <strong>КФУ</strong>
+        </div>
+    </v-footer>
 </template>
   
 <script lang="ts">
@@ -69,6 +79,9 @@ export default defineComponent({
             rules: {
                 required: (value: any) => !!value || 'Введите ссылку',
             },
+            icons: [
+                'mdi-github',
+            ],
         };
     },
 
@@ -131,9 +144,14 @@ export default defineComponent({
 </script>
 
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;700&display=swap');
+
+.font{
+    font-family:'Roboto Condensed';
+}
 .container.d-flex.justify-center {
-    align-items: center;
     width: 150vh;
+    height: 200px;
 }
 
 .form-container {
@@ -147,6 +165,48 @@ export default defineComponent({
     transform: translate(-50%, -50%);
 }
 
+.btn {
+    color: #000000;
+
+    align-content: center;
+    border: none;
+    background-color: #30ac59;
+    border-radius: 12px;
+    border: 5px solid #003512;
+    transition: all 0.4s cubic-bezier(0.42, 0, 0.58, 1);
+}
+
+.btn:hover {
+    color: #ffffff !important;
+    background-color: transparent;
+    text-shadow: rgb(110, 6, 6);
+}
+
+.btn:active {
+    color: #834b4b;
+    border: none;
+}
+
+.btn:hover:before {
+    right: 0%;
+    left: auto;
+    width: 100%;
+}
+
+btn:before {
+    display: block;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    height: 100%;
+    width: 0px;
+    z-index: -1;
+    content: '';
+    border: none;
+
+    transition: all 0.4s cubic-bezier(0.42, 0, 0.58, 1);
+}
+
 .absolute {
     position: absolute;
     top: 0;
@@ -156,6 +216,12 @@ export default defineComponent({
 
 .container>.row {
     flex-wrap: nowrap;
+}
+
+.v-footer {
+    padding: 0;
+    margin-top: auto;
+    width: 100%;
 }
 </style>
 

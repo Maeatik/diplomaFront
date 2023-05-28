@@ -1,27 +1,28 @@
 <template>
   <v-app class="app">
-    <v-app-bar app color="primary" dark>
-      <v-toolbar-title>TextGrabber</v-toolbar-title>
+    <v-app-bar app color="#AFEEEE" dark>
+      <v-toolbar-title class="font" style="font-size: 35px; font-weight: 700;">TEXTGrabber</v-toolbar-title>
+
       <v-spacer></v-spacer>
 
-      <v-btn @click="save()" class="saveButton">Сохранить</v-btn>
-      <v-btn @click="checkSave()">Выйти</v-btn>
+      <v-btn style="font-size: 14px; font-weight: 700;" @click="save()" class="saveButton font btn">Сохранить</v-btn>
+      <v-btn class="btn font" style="font-size: 14px; font-weight: 700;" @click="checkSave()">Выйти</v-btn>
     </v-app-bar>
 
     <ContentEditor v-model="this.content" class="sticky-object" @update:model123="this.content"
       @getText="getTextFromEditor"></ContentEditor>
   </v-app>
 
-  <v-overlay v-model="overlayDelete" contained class="align-center justify-center">
+  <v-overlay v-model="overlayDelete" contained class="align-center justify-center font">
     <v-card>
       <v-card-text>
         <v-form>
           <div>Вы уверены? Если вы не сохраните и выйдете, изменения потеряются</div>
           <div class="text-center deleteField">
-            <v-btn justify-content="center" color="success" class="flex-1-0 ma-2 pa-2" @click="cancel()">
+            <v-btn justify-content="center" color="success" class="flex-1-0 ma-2 pa-2 btn" style="font-size: 14px; font-weight: 700;" @click="cancel()">
               Отменить
             </v-btn>
-            <v-btn justify-content="right" type="submit" color="error" class="ma-2 pa-2" to="/account">
+            <v-btn justify-content="right" type="submit" color="error" class="ma-2 pa-2 btn" style="font-size: 14px; font-weight: 700;" to="/account">
               Выйти
             </v-btn>
 

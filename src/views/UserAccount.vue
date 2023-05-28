@@ -1,7 +1,8 @@
 <template>
     <v-app class="app">
-        <v-app-bar app color="primary" dark>
-            <v-toolbar-title>TextGrabber</v-toolbar-title>
+        <v-app-bar app color="#AFEEEE" dark>
+            <v-toolbar-title class="font" style="font-size: 35px; font-weight: 700;">TEXTGrabber</v-toolbar-title>
+
             <v-spacer></v-spacer>
             <div class="d-flex justify-space-around">
                 <v-menu>
@@ -10,12 +11,12 @@
                     </template>
 
                     <v-list class="flex-column">
-                        <v-btn variant="plain" class="w-100" to="/textgrabber">Вернуться на главную</v-btn>
-                        <v-btn variant="plain" class="w-100" @click="overlayPassword = !overlayPassword">Сменить
+                        <v-btn variant="plain" class="w-100 font" to="/textgrabber">Вернуться на главную</v-btn>
+                        <v-btn variant="plain" class="w-100 font" @click="overlayPassword = !overlayPassword">Сменить
                             пароль</v-btn>
-                        <v-btn variant="plain" class="w-100" @click=logout() to="/">Выйти из аккаунта
+                        <v-btn variant="plain" class="w-100 font" @click=logout() to="/">Выйти из аккаунта
                         </v-btn>
-                        <v-btn variant="plain" class="w-100" @click="overlayDelete = !overlayDelete">Удалить аккаунт</v-btn>
+                        <v-btn variant="plain" class="w-100 font" @click="overlayDelete = !overlayDelete">Удалить аккаунт</v-btn>
                     </v-list>
                 </v-menu>
             </div>
@@ -25,13 +26,13 @@
             <v-card>
                 <v-card-text>
                     <v-form>
-                        <v-text-field v-model="pass" label="Введите пароль" outlined required></v-text-field>
-                        <v-text-field v-model="check_pass" label="Введите повторно пароль"></v-text-field>
+                        <v-text-field v-model="pass" class="font" label="Введите пароль" outlined required></v-text-field>
+                        <v-text-field v-model="check_pass" class="font" label="Введите повторно пароль"></v-text-field>
 
-                        <v-tooltip activator="deleteField" location="top" text="Это действие нельзя обратить">
+                        <v-tooltip activator="deleteField" class="font" location="top" text="Это действие нельзя обратить">
                             <template v-slot:activator="{ props }">
                                 <div class="text-center deleteField">
-                                    <v-btn v-bind="props" justify-content="center" color="error" @click="deleteUser()"
+                                    <v-btn class="font" v-bind="props"  style="font-size: 14px; font-weight: 700;" justify-content="center" color="error" @click="deleteUser()"
                                         to="/">
                                         Удалить
                                     </v-btn>
@@ -47,11 +48,11 @@
             <v-card>
                 <v-card-text>
                     <v-form>
-                        <v-text-field v-model="old" label="Введите старый пароль" outlined required></v-text-field>
-                        <v-text-field v-model="newPass" label="Введите новый пароль" outlined required></v-text-field>
-                        <v-text-field v-model="reNewPass" label="Введите повторно новый пароль"></v-text-field>
+                        <v-text-field v-model="old" class="font" label="Введите старый пароль" outlined required></v-text-field>
+                        <v-text-field v-model="newPass" class="font" label="Введите новый пароль" outlined required></v-text-field>
+                        <v-text-field v-model="reNewPass" class="font" label="Введите повторно новый пароль"></v-text-field>
                         <div class="text-center deleteField">
-                            <v-btn justify-content="center" type="submit" color="success" @click="changePassword()">
+                            <v-btn justify-content="center" class="font" style="font-size: 14px; font-weight: 700;" type="submit" color="success" @click="changePassword()">
                                 Сменить пароль
                             </v-btn>
                         </div>
@@ -59,21 +60,27 @@
                 </v-card-text>
             </v-card>
         </v-overlay>
-        
+
         <v-card v-if="hasTexts" class="content" max-height="90%">
-            <v-card-title class="titlecard">
+            <v-card-title class="titlecard font" style="font-size: 40px; font-weight: 700;">
                 Мои тексты
             </v-card-title>
-            <v-virtual-scroll v-if="hasTexts" :items="textItems" height="60%" class="texts">
+            <v-virtual-scroll v-if="hasTexts" :items="textItems" height="70%" class="texts">
                 <template v-slot:default="{ item, index }">
                     <v-list-item :class="[
-                        index % 2 === 0 ? 'py-2' : index % 5 == 0 ? 'py-8' : 'py-4',
-                        index % 2 === 0 ? 'bg-grey-lighten-2' : index % 5 === 0 ? 'bg-grey-darken-2' : '',
+                        'my-2',
+                        'rounded-lg',
+                        'elevation-1',
+                        index % 2 === 0 ? 'bg-grey-lighten-2' : index % 5 === 0 ? 'LawnGreen' : '',
                         'px-2'
-                    ]">
-                        {{ item.url }}, {{ item.tag }}, {{ item.date }}
+                    ]" style="border-color: black;  background-color:#AFEEEE">
+                        <v-text class="font" style="white-space: nowrap;">{{ item.url }}</v-text>
+
 
                         <template v-slot:append>
+                            <v-text class="tag justify-end font">{{ item.tag }}</v-text>
+                            <!-- <v-spacer></v-spacer> -->
+                            <v-text class="date font">{{ item.date }}</v-text>
                             <v-btn icon="mdi-cloud-upload" size="x-small" variant="tonal" class="textsButton"
                                 @click="download(item)"></v-btn>
                             <v-btn icon="mdi-pencil" size="x-small" variant="tonal" class="textsButton"
@@ -89,6 +96,19 @@
             <v-card-title>У вас пока нет текстов</v-card-title>
         </v-card>
     </v-app>
+    <v-footer class="flex-column">
+        <div class="bg-teal d-flex  w-100">
+            <strong>Проект расположен в открытом доступе</strong>
+
+            <v-spacer></v-spacer>
+
+            <v-btn v-for="icon in icons" :key="icon" class="mx-4" :icon="icon" variant="plain" size="small"></v-btn>
+        </div>
+
+        <div class="bg-black text-center w-100">
+            {{ new Date().getFullYear() }} — <strong>КФУ</strong>
+        </div>
+    </v-footer>
 </template>
   
 
@@ -112,7 +132,10 @@ export default defineComponent({
         textItems: [],
         downloadData: {},
         deleteData: { password: "" },
-        userData: { password: "", new_password: "" }
+        userData: { password: "", new_password: "" },
+        icons: [
+            'mdi-github',
+        ],
     }),
     mounted() {
         this.getSitesLists().then(response => {
@@ -247,20 +270,45 @@ export default defineComponent({
                     console.error(error);
                 }
             }
-        }
+        },
 
     }
 });
 </script>
 
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;700&display=swap');
+
+
+.font {
+    font-family: 'Roboto Condensed'
+}
+
 .deleteField {
     /* padding-left: 100px; */
     padding-inline: 100px;
 }
 
+.my-2 {
+    margin-top: 8px;
+    margin-bottom: 8px;
+}
+
+.rounded-lg {
+    border: 50px solid black;
+    border-radius: 10px;
+    padding: 8px;
+}
+
+.black--text {
+    color: black;
+    font-weight: bold;
+}
+
 .texts {
     margin-top: 10px;
+    width: 100%;
+    overflow-x: hidden;
 }
 
 .titlecard {
@@ -274,9 +322,26 @@ export default defineComponent({
 .content {
     margin-top: 100px;
     padding-inline: 5%;
+    overflow-x: hidden;
 }
 
 .textsButton {
     margin: 5px;
+}
+
+.tag {
+    /* margin-left: 40%; */
+
+    background-color: white;
+    background-size: 20%;
+    border-radius: 8px;
+    padding: 4px 8px;
+}
+
+.date {
+    background-size: 20%;
+    border-radius: 8px;
+    padding: 4px 8px;
+    white-space: nowrap;
 }
 </style>
