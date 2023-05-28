@@ -120,7 +120,7 @@ export default defineComponent({
         return
       }
 
-      this.$router.push('/');
+      this.$router.push('/textgrabber');
 
       console.log('Отправлено:', this.login, this.password, this.rePassword);
     },

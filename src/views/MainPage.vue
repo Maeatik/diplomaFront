@@ -3,13 +3,9 @@
         <v-app-bar app color="primary" dark>
             <v-toolbar-title>TextGrabber</v-toolbar-title>
             <v-spacer></v-spacer>
-            <template v-if="!!token">
-                <v-btn to="/account">Мой аккаунт</v-btn>
-            </template>
-            <template v-else>
-                <v-btn to="/registration">Регистрация</v-btn>
-                <v-btn to="/login">Вход в систему</v-btn>
-            </template>
+
+             <v-btn to="/account">Мой аккаунт</v-btn>
+
 
         </v-app-bar>
 

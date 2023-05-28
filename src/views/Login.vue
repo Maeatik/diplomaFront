@@ -84,7 +84,7 @@ export default defineComponent({
         });
 
 
-      this.$router.push('/');
+      this.$router.push('/textgrabber');
       console.log('Отправлено:', this.login, this.password, this.rePassword);
     }
   }

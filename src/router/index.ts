@@ -4,10 +4,16 @@ import Register from '../views/Register.vue'
 import Login from '../views/Login.vue'
 import Account from '../views/UserAccount.vue'
 import Text from '../views/TextPage.vue'
+import LogSignPage from '../views/LogSignPage.vue'
 
 const routes: Array<RouteRecordRaw> = [
   {
-    path: '/',
+    path:'/',
+    name:'LogSignPage',
+    component:LogSignPage
+  },
+  {
+    path: '/textgrabber',
     name: 'MainPage',
     component: MainPage,
     props: (route) => ({ refresh: route.query.refresh })
@@ -28,7 +34,7 @@ const routes: Array<RouteRecordRaw> = [
     component: Account
   },
   {
-    path: '/text',
+    path: '/text/:id&:textid',
     name: 'Text',
     component: Text
   }

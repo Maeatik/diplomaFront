@@ -58,13 +58,16 @@ export default {
   },
   methods: {
     save() {
+      const idsite = parseInt(this.$route.params.id, 10);
+      const idtext = parseInt(this.$route.params.textid, 10);
+
       const jwtToken = localStorage.getItem('jwtToken');
       if (jwtToken !== null) {
         this.token = jwtToken
       }
       axios.defaults.headers.common['Authorization'] = `Bearer ${this.token}`;
 
-      this.textData = { id: 23, site_id: 19, text: this.content }
+      this.textData = { id: idtext, site_id: idsite, text: this.content }
       axios.put('http://localhost:8000/api/texts/text', this.textData)
         .then(response => {
           this.$router.push('/account');
@@ -100,6 +103,10 @@ export default {
     },
 
     getText() {
+      const id = parseInt(this.$route.params.id, 10);
+      const idtext = parseInt(this.$route.params.textid, 10);
+
+
       let content;
       (async () => {
         const jwtToken = localStorage.getItem('jwtToken');
@@ -108,7 +115,7 @@ export default {
         }
         axios.defaults.headers.common['Authorization'] = `Bearer ${this.token}`;
 
-        this.apiData = { id: 23, site_id: 19 }
+        this.apiData = { id: idtext, site_id: id }
 
         try {
           const response = await axios.get('http://localhost:8000/api/texts/text', {
@@ -135,7 +142,9 @@ export default {
 
   },
   created() {
-    let content = '123123123123';
+    const id = parseInt(this.$route.params.id, 10);
+    const idtext = parseInt(this.$route.params.textid, 10);
+
     (async () => {
       const jwtToken = localStorage.getItem('jwtToken');
       if (jwtToken !== null) {
@@ -143,7 +152,7 @@ export default {
       }
       axios.defaults.headers.common['Authorization'] = `Bearer ${this.token}`;
 
-      this.apiData = { id: 23, site_id: 19 }
+      this.apiData = { id: idtext, site_id: id }
 
       try {
         const response = await axios.get('http://localhost:8000/api/texts/text', {
