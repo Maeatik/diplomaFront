@@ -15,7 +15,7 @@
                         <v-col cols="12" md="8" class="col-6">
                             <v-text-field v-model="url" class="font" label="Введите ссылку" :rules="[rules.required]">
                                 <template v-slot:append>
-                                    <v-tooltip activator="parent" class="font"  location="top"
+                                    <v-tooltip activator="parent" class="font" location="top"
                                         text="Введите ссылку на корень сайта, с которого вы хочете забрать текст">
                                         <template v-slot:activator="{ props }">
                                             <v-btn v-bind="props" icon @click="showHelp('link')">
@@ -27,9 +27,9 @@
                             </v-text-field>
                         </v-col>
                         <v-col cols="12" md="4" class="col-4">
-                            <v-text-field v-model="tag" class="font"  label="Введите теговое слово или фразу">
+                            <v-text-field v-model="tag" class="font" label="Введите теговое слово или фразу">
                                 <template v-slot:append>
-                                    <v-tooltip activator="parent" class="font"  location="top"
+                                    <v-tooltip activator="parent" class="font" location="top"
                                         text="Вы можете ввести слово или фразу, по которой будет определяться релевантность текста">
                                         <template v-slot:activator="{ props }">
                                             <v-btn v-bind="props" icon @click="showHelp('keyword')">
@@ -41,7 +41,10 @@
                             </v-text-field>
                         </v-col>
                         <v-col cols="12" md="4">
-                            <v-btn color="#00CED1" @click=handleClick class="btn font" style="font-size: 14px; font-weight: 700;">Собрать текст</v-btn>
+                            <v-btn color="#00CED1" @click=handleClick class="btn font"
+                                style="font-size: 14px; font-weight: 700;">Собрать текст
+                                <v-progress-circular v-if="isLoading" indeterminate size="24"
+                                    color="white"></v-progress-circular></v-btn>
                         </v-col>
                     </v-row>
                 </v-layout>
@@ -53,8 +56,9 @@
             <strong>Проект расположен в открытом доступе</strong>
 
             <v-spacer></v-spacer>
-
-            <v-btn v-for="icon in icons" :key="icon" class="mx-4" :icon="icon" variant="plain" size="small"></v-btn>
+            <a href="https://github.com/Maeatik">
+                <v-btn v-for="icon in icons" :key="icon" class="mx-4" :icon="icon" variant="plain" size="small"></v-btn>
+            </a>
         </div>
 
         <div class="bg-black text-center w-100">
@@ -82,20 +86,28 @@ export default defineComponent({
             icons: [
                 'mdi-github',
             ],
+            links: [
+                'https://github.com/Maeatik/VKR'
+            ],
+            isLoading: false,
         };
     },
 
     methods: {
         handleClick(): void {
+            this.isLoading = true;
             this.data.url = this.url
             this.data.tag = this.tag
             axios.defaults.headers.common['Authorization'] = `Bearer ${this.token}`;
             axios.post('http://localhost:8000/api/parse', this.data)
                 .then(response => {
                     console.log(response.data);
+                    this.isLoading = false;
+                    this.$router.push('/account')
                 })
                 .catch(error => {
                     console.error(error);
+                    this.isLoading = false;
                 });
             console.log('Button clicked');
         },
@@ -146,9 +158,10 @@ export default defineComponent({
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;700&display=swap');
 
-.font{
-    font-family:'Roboto Condensed';
+.font {
+    font-family: 'Roboto Condensed';
 }
+
 .container.d-flex.justify-center {
     width: 150vh;
     height: 200px;
