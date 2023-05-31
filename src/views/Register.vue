@@ -118,7 +118,6 @@ export default defineComponent({
               console.error(error.response);
               if (error.response.status == 406) {
                 this.showRegisterError = true
-                console.log(1222222)
               }
             });
 
@@ -197,11 +196,8 @@ export default defineComponent({
 .absolute {
   position: absolute;
   top: 0;
-  /* Position it at the top */
   left: 50%;
-  /* Horizontally center it */
   transform: translateX(-50%);
-  /* Adjust horizontally centering */
 }
 
 .alert {

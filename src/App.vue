@@ -30,11 +30,6 @@ export default defineComponent({
     }
   },
   created() {
-    // fetchData().then(() => {
-    //   this.loading = false; // Пример: Установка loading в false после успешной загрузки данных
-    // });
-    // Можете использовать хук created или другие методы жизненного цикла компонента для загрузки данных
-    // После загрузки данных установите this.loading в false
   },
 })
 </script>

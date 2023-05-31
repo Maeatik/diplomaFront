@@ -33,8 +33,6 @@
 <script>
 export default {
     methods: {
-        handleClick(area) {
-            // Обработка клика по области
             console.log(`Вы кликнули по области ${area}`);
         },
         handleIn() {
@@ -49,24 +47,6 @@ export default {
   
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;700&display=swap');
-
-
-@font-face {
-    
-  font-family: 'Bookerly';
-  src: url('../assets/fonts/Bookerly Bold Italic.ttf') format('truetype'),
-       url('../assets/fonts/Bookerly Bold.ttf') format('truetype'),
-       url('../assets/fonts/Bookerly Display Bold Italic.ttf') format('truetype'),
-       url('../assets/fonts/Bookerly Display Bold.ttf') format('truetype'),
-       url('../assets/fonts/Bookerly Display Italic.ttf') format('truetype'),
-       url('../assets/fonts/Bookerly Display.ttf') format('truetype'),
-       url('../assets/fonts/Bookerly Italic.ttf') format('truetype'),
-       url('../assets/fonts/Bookerly LCD Italic.ttf') format('truetype'),
-       url('../assets/fonts/Bookerly LCD Light Italic.ttf') format('truetype'),
-       url('../assets/fonts/Bookerly Light.ttf') format('truetype'),
-       url('../assets/fonts/Bookerly.ttf') format('truetype'),
-  /* Дополнительные свойства для определения начертания и стиля шрифта, если нужно */
-}
 
 .fill-height {
     height: 100vh;

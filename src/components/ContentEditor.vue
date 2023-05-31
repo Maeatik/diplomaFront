@@ -1,24 +1,24 @@
 <template>
   <div class="ck_editor">
     <CKEditor :editor="editor" v-model="editorData" :config="editorConfig" :update="modelValue"></CKEditor>
-  </div> 
+  </div>
 </template>
 
-<script lang="ts" setup>  
+<script lang="ts" setup>
 import { ref, watch, onMounted } from 'vue'
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-import { component as CKEditor } from '@ckeditor/ckeditor5-vue'; 
- 
+import { component as CKEditor } from '@ckeditor/ckeditor5-vue';
+
 
 const props = defineProps({
-  modelValue: String, 
+  modelValue: String,
   content: String
 });
 
 
 const emit = defineEmits(['update:modelValue', 'getText']);
 console.log(props.modelValue)
-const editor= ClassicEditor
+const editor = ClassicEditor
 
 const editorData = ref(props.modelValue || '');
 const editorConfig = ref({
@@ -31,13 +31,11 @@ const editorConfig = ref({
     ]
   },
   language: 'ru'
-}); 
+});
 
 watch(() => props.modelValue, (newValue) => {
-  if (newValue !== undefined){
+  if (newValue !== undefined) {
     editorData.value = newValue;
-  } else {
-    console.log('хуй')
   }
 });
 

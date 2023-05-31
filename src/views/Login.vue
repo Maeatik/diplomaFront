@@ -139,10 +139,7 @@ export default defineComponent({
 .absolute {
   position: absolute;
   top: 0;
-  /* Position it at the top */
   left: 50%;
-  /* Horizontally center it */
   transform: translateX(-50%);
-  /* Adjust horizontally centering */
 }
 </style>

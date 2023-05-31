@@ -96,11 +96,11 @@ export default {
       console.log('Текст из редактора:', text);
     },
     cancel() {
-      if (this.isOverlayClosed) { // Отмена только при закрытии v-overlay
+      if (this.isOverlayClosed) {
         this.content = this.text
         this.overlayDelete = false
       }
-      this.isOverlayClosed = true // Обновление состояния isOverlayClosed
+      this.isOverlayClosed = true
     },
 
     getText() {
@@ -124,13 +124,9 @@ export default {
               'X-Data': JSON.stringify(this.apiData)
             }
           });
-
           this.content = response.data.text
 
           content = response.data.text
-
-          // Вызов других методов или выполнение другой логики здесь
-
         } catch (error) {
           console.error(error);
         } finally {
@@ -163,11 +159,8 @@ export default {
         });
 
         this.content = response.data.text
-        console.log(this.content)
-        this.$forceUpdate
-        console.log(this.content)
-        // Вызов других методов или выполнение другой логики здесь
 
+        this.$forceUpdate
       } catch (error) {
         console.error(error);
       } finally {
@@ -193,6 +186,5 @@ export default {
 .sticky-object {
   margin-top: 70px;
   margin-inline: 100px;
-  /* Опустить объект вниз */
 }
 </style>

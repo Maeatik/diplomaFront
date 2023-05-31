@@ -131,7 +131,7 @@ export default defineComponent({
     watch: {
         refresh(newRefresh) {
             if (newRefresh) {
-                this.isLoggedIn2(); // Вызов метода при изменении параметра refresh
+                this.isLoggedIn2(); 
             }
         }
     },
@@ -143,14 +143,6 @@ export default defineComponent({
     },
     created() {
         return this.isLoggedIn2();
-
-        // const jwtToken = localStorage.getItem('jwtToken');
-        // if (jwtToken !== null) {
-        //     this.token = jwtToken
-        // }
-
-        // console.log(this.token)
-        // return !!this.token;
     }
 });
 </script>

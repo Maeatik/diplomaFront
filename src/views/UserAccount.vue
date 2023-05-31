@@ -79,7 +79,6 @@
 
                         <template v-slot:append>
                             <v-text class="tag justify-end font">{{ item.tag }}</v-text>
-                            <!-- <v-spacer></v-spacer> -->
                             <v-text class="date font">{{ item.date }}</v-text>
                             <v-btn icon="mdi-cloud-upload" size="x-small" variant="tonal" class="textsButton"
                                 @click="download(item)"></v-btn>
@@ -140,7 +139,7 @@ export default defineComponent({
     mounted() {
         this.getSitesLists().then(response => {
             this.hasTexts = true
-            this.textItems = response.data; // Присваиваем данные из ответа промиса
+            this.textItems = response.data;
             console.log(this.textItems);
             this.sortTextItems();
         }).catch(error => {
@@ -215,7 +214,7 @@ export default defineComponent({
                 const url = window.URL.createObjectURL(new Blob([response.data]));
                 const link = document.createElement('a');
                 link.href = url;
-                link.setAttribute('download', 'document.doc'); // Задаем имя файла
+                link.setAttribute('download', 'document.doc');
                 document.body.appendChild(link);
                 link.click();
             })
@@ -285,7 +284,6 @@ export default defineComponent({
 }
 
 .deleteField {
-    /* padding-left: 100px; */
     padding-inline: 100px;
 }
 
@@ -316,7 +314,6 @@ export default defineComponent({
     display: flex;
     justify-content: center;
     align-items: center;
-    /* Высота экрана минус высота шапки */
 }
 
 .content {
@@ -330,8 +327,6 @@ export default defineComponent({
 }
 
 .tag {
-    /* margin-left: 40%; */
-
     background-color: white;
     background-size: 20%;
     border-radius: 8px;
